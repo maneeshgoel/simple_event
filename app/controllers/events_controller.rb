@@ -67,7 +67,7 @@ class EventsController < ApplicationController
   
     @client = Twilio::REST::Client.new(ENV['ACCOUNT_SID'], ENV['AUTH_TOKEN'])
     @account = @client.account
-    @message = "#{flag == "n" ? "New" : "Updated"} Event: #{event.name}, D: #{l event.datetime, :format => :long}, L: #{event.location}. Reply #{event.id} y/Y to accept, #{event.id} n/N to decline"
+    @message = "#{flag == "n" ? "New" : "Updated"} Event: #{event.name}, D: #{l event.datetime, :format => :long}, L: #{event.location}. Reply \"#{event.id}\" y to accept, \"#{event.id} n\" to decline"
     @users.each do |user|
       @account.sms.messages.create({:from => '+16503533465', :to => "+1#{user.phone}", :body => @message})
     end

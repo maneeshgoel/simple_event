@@ -35,7 +35,7 @@ class ReceiveTextController < ApplicationController
     @client = Twilio::REST::Client.new(ENV['ACCOUNT_SID'], ENV['AUTH_TOKEN'])
     @account = @client.account
     if disp == "b"
-      @message = "bad response; event: #{event.name}. Please reply \"#{event.id} y\" OR \"#{event.id} Y\" to accept, \"#{event.id} n\" OR \"#{event.id} N\" to decline"
+      @message = "bad response; event: #{event.name}. Please reply \"#{event.id} Y\" to accept, \"#{event.id} N\" to decline"
     else
       @message = "#{disp == "y" ? "Accepted" : "Declined"} Event: #{event.name}, D: #{ l event.datetime, :format => :long}, L: #{event.location}"
     end
