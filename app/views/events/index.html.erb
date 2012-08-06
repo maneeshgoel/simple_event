@@ -1,0 +1,6 @@
+<h1>Listing all events</h1>
+<ul>
+	<% @events.each do |event| %>
+		<li><%= link_to event.name, event_path(event) %>, <%= l event.datetime, :format => :long %>, <%= event.location %>, number attending: <%= event.attendees.count %>
+	<% end %>
+</ul>

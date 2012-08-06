@@ -1,0 +1,22 @@
+<h1>Event: <%= @event.name %></h1>
+<%= link_to "edit this event", edit_event_path(@event) %>
+<h3>Time:</h3><%= l @event.datetime, :format => :long %>
+<h3>Location:</h3> <%= @event.location %>
+<h3>Details:</h3> <%= @event.details %>
+<h2>Attending:</h2>
+<ul>
+	<% @event.attending_users.each do |user| %>
+		<%= user.name %>
+	<% end %>
+</ul>
+<p>
+<%= form_tag :controller => 'events', :action => "attending", method: :put do %>
+
+    <%= label_tag "yes" %>
+    <%= radio_button_tag :attending, 1 %>
+    <%= label_tag "no" %>
+    <%= radio_button_tag :attending, 0 %>
+    <%= hidden_field_tag 'id', @event.id %>
+  <%= submit_tag "respond", name: nil %>
+<% end %>
+</p>

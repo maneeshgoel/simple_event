@@ -1,0 +1,11 @@
+event system
+
+create event (web or mobile)
+	set date, time, location
+	invite users
+	
+users disposition (web/mobile)
+
+users check status of event
+
+if event details change, people get texts

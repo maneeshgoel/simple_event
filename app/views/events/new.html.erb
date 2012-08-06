@@ -1,0 +1,20 @@
+<h1>Create a new event</h1>
+<div class="row">
+	<div class="span6 offset3">
+		<%= form_for(@event) do |f| %>
+			<%= f.label :name %><br>
+			<%= f.text_field :name %>
+			<br>
+			<%= f.label :location %><br>
+			<%= f.text_field :location %>
+			<br>
+			<%= f.label :datetime %><br>
+			<%= f.datetime_select :datetime %>
+			<br>
+			<%= f.label :details %><br>
+			<%= f.text_field :details %>
+			<br>
+			<%= f.submit "Eventify!", class: "btn btn-large btn-primary" %>
+		<% end %>
+	</div>
+</div>
