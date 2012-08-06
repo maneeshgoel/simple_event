@@ -6,7 +6,7 @@
 <h2>Attending:</h2>
 <ul>
 	<% @event.attending_users.each do |user| %>
-		<%= user.name %>
+		<li><%= user.name %></li>
 	<% end %>
 </ul>
 <p>
