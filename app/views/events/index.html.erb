@@ -12,7 +12,7 @@
 		<li><%= link_to today.name, event_path(today) %>, <%= l today.datetime, :format => :long %>, <%= today.location %>, number attending: <%= today.attendees.count %></li>
 	<% end %>
 </ul>
-<h2>Other Events:</h2>
+<h2>Future Events:</h2>
 <ul>
 	<% @events_later.each do |event| %>
 		<li><%= link_to event.name, event_path(event) %>, <%= l event.datetime, :format => :long %>, <%= event.location %>, number attending: <%= event.attendees.count %></li>
