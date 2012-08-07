@@ -35,7 +35,7 @@ class EventsController < ApplicationController
   end
 
   def index
-    @events = Event.all
+    @events = Event.all.sort_by! { |event| event.datetime }
   end
   
   def attending
