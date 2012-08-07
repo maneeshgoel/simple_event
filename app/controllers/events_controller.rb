@@ -39,6 +39,7 @@ class EventsController < ApplicationController
     @events_today = Event.where('datetime BETWEEN ? AND ?', DateTime.now.beginning_of_day, DateTime.now.end_of_day).all.sort_by! {|event| event.datetime}
     @events_now = Event.where('datetime BETWEEN ? AND ?', DateTime.now, DateTime.now + 2.hours).all.sort_by! {|event| event.datetime}
     @events_later = Event.where('datetime > ?', DateTime.now.end_of_day).all.sort_by! {|event| event.datetime}
+    @events_tomorrow = Event.where('datetime BETWEEN ? AND ?', DateTime.now.end_of_day, DateTime.now.end_of_day + 1.day).all.sort_by! {|event| event.datetime}
   end
   
   def attending
