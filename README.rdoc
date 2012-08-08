@@ -9,3 +9,14 @@ users disposition (web/mobile)
 users check status of event
 
 if event details change, people get texts
+
+
+TODO
+monetization
+affiliate links
+event list through text
+event create through text
+text squash
+text redo
+event creator
+
