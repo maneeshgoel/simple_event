@@ -18,5 +18,6 @@ event list through text
 event create through text
 text squash
 text redo
-event creator
+event creator, only creator can edit
+users are members of groups, a lens for events
 
