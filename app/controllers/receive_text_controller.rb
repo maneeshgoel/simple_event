@@ -37,7 +37,7 @@ class ReceiveTextController < ApplicationController
     if disp == "b"
       @message = "bad response; event: #{event.name}. Please reply \"#{event.id} Y\" to accept, \"#{event.id} N\" to decline"
     else
-      @message = "#{disp == "y" ? "Accepted" : "Declined"} Event: #{event.name}, D: #{ l event.datetime, :format => :long}, L: #{event.location}"
+      @message = "#{disp == "y" ? "Accepted" : "Declined"} Event: #{event.name}, D: #{ l event.datetime - 7.hours, :format => :long}, L: #{event.location}"
     end
     @account.sms.messages.create({:from => '+16503533465', :to => "+1#{user.phone}", :body => @message})
   end

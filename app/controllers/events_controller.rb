@@ -7,7 +7,6 @@ class EventsController < ApplicationController
   
   def create
     @event = Event.new(params[:event])
-    @event.datetime -= 7.hours
     @event.save
     #text everyone here
     send_texts(@event, "n")
@@ -37,10 +36,10 @@ class EventsController < ApplicationController
 
   def index
     @events = Event.all.sort_by! { |event| event.datetime }
-    @events_today = Event.where('datetime BETWEEN ? AND ?', (DateTime.now.beginning_of_day), (DateTime.now.end_of_day)).all.sort_by! {|event| event.datetime}
-    @events_now = Event.where('datetime BETWEEN ? AND ?', (DateTime.now), (DateTime.now + 2.hours)).all.sort_by! {|event| event.datetime}
-    @events_later = Event.where('datetime > ?', (DateTime.now.end_of_day + 24.hours)).all.sort_by! {|event| event.datetime}
-    @events_tomorrow = Event.where('datetime BETWEEN ? AND ?', (DateTime.now.end_of_day), (DateTime.now.end_of_day + 24.hours)).all.sort_by! {|event| event.datetime}
+    @events_today = Event.where('datetime BETWEEN ? AND ?', (DateTime.now.beginning_of_day - 7.hours), (DateTime.now.end_of_day - 7.hours)).all.sort_by! {|event| event.datetime}
+    @events_now = Event.where('datetime BETWEEN ? AND ?', (DateTime.now -7.hours), (DateTime.now - 5.hours)).all.sort_by! {|event| event.datetime}
+    @events_later = Event.where('datetime > ?', (DateTime.now.end_of_day + 17.hours)).all.sort_by! {|event| event.datetime}
+    @events_tomorrow = Event.where('datetime BETWEEN ? AND ?', (DateTime.now.end_of_day - 7.hours), (DateTime.now.end_of_day - 17.hours)).all.sort_by! {|event| event.datetime}
   end
   
   def attending
@@ -72,7 +71,7 @@ class EventsController < ApplicationController
   
     @client = Twilio::REST::Client.new(ENV['ACCOUNT_SID'], ENV['AUTH_TOKEN'])
     @account = @client.account
-    @message = "#{flag == "n" ? "New" : "Updated"} Event: #{event.name}, D: #{l event.datetime, :format => :long}, L: #{event.location}. Reply \"#{event.id} y\" to accept, \"#{event.id} n\" to decline"
+    @message = "#{flag == "n" ? "New" : "Updated"} Event: #{event.name}, D: #{l event.datetime - 7.hours, :format => :long}, L: #{event.location}. Reply \"#{event.id} y\" to accept, \"#{event.id} n\" to decline"
     @users.each do |user|
       @account.sms.messages.create({:from => '+16503533465', :to => "+1#{user.phone}", :body => @message})
     end
