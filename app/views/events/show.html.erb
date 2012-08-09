@@ -2,6 +2,7 @@
 <%= link_to "edit this event", edit_event_path(@event) %>
 <h3>Time:</h3><%= l @event.datetime, :format => :long %>
 <h3>Location:</h3> <%= @event.location %>
+<h3>Created by:</h3> <%= @user_name %>
 <h3>Details:</h3> <%= @event.details %>
 <h2>Attending:</h2>
 <ul>

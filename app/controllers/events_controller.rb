@@ -7,6 +7,7 @@ class EventsController < ApplicationController
   
   def create
     @event = Event.new(params[:event])
+    @event.user_id = current_user.id
     @event.save
     #text everyone here
     send_texts(@event, "n")
@@ -32,6 +33,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    @user_name = User.find(@event.user_id).name
   end
 
   def index
@@ -68,10 +70,10 @@ class EventsController < ApplicationController
   
   def send_texts(event, flag)
     @users = User.all
-  
     @client = Twilio::REST::Client.new(ENV['ACCOUNT_SID'], ENV['AUTH_TOKEN'])
     @account = @client.account
-    @message = "#{flag == "n" ? "New" : "Updated"} Event: #{event.name}, D: #{l event.datetime, :format => :long}, L: #{event.location}. Reply \"#{event.id} y\" to accept, \"#{event.id} n\" to decline"
+    @user_name = User.find(event.user_id).name
+    @message = "#{flag == "n" ? "New" : "Updated"} Event: #{event.name}, created by: #{@user_name}, D: #{l event.datetime, :format => :long}, L: #{event.location}. Reply \"#{event.id} y\" to accept, \"#{event.id} n\" to decline"
     @users.each do |user|
       @account.sms.messages.create({:from => '+16503533465', :to => "+1#{user.phone}", :body => @message})
     end
