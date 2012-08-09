@@ -1,5 +1,7 @@
 <h1>Event: <%= @event.name %></h1>
+<% if current_user.id == @event.user_id %>
 <%= link_to "edit this event", edit_event_path(@event) %>
+<% end %>
 <h3>Time:</h3><%= l @event.datetime, :format => :long %>
 <h3>Location:</h3> <%= @event.location %>
 <h3>Created by:</h3> <%= @user_name %>
